@@ -10,10 +10,6 @@ import SwiftUI
 public struct ModalPresenterModifier<Destination: DestinationProtocol>: ViewModifier {
     @ObservedObject var presenter: ModalPresenter<Destination>
 
-    public init(presenter: ModalPresenter<Destination>) {
-        self.presenter = presenter
-    }
-
     public func body(content: Content) -> some View {
         content
             .fullScreenCover(item: $presenter.fullScreenCoverDestination, onDismiss: {
