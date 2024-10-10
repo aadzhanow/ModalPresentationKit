@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		74547DA32CB6AF9000A70463 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74547D9E2CB6AF9000A70463 /* Assets.xcassets */; };
 		74547DB52CB6C54100A70463 /* ModalDestinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74547DB42CB6C54000A70463 /* ModalDestinations.swift */; };
-		74547DBA2CB6C5A500A70463 /* ModalPresenterExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74547DB92CB6C5A300A70463 /* ModalPresenterExampleApp.swift */; };
+		74547DBA2CB6C5A500A70463 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74547DB92CB6C5A300A70463 /* ExampleApp.swift */; };
 		74547DBC2CB6C5BA00A70463 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74547DBB2CB6C5B800A70463 /* MainView.swift */; };
 		74547DBE2CB6C5CD00A70463 /* FullScreenCoverExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74547DBD2CB6C5CC00A70463 /* FullScreenCoverExampleView.swift */; };
 		74547DC02CB6C5DA00A70463 /* SheetExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74547DBF2CB6C5D900A70463 /* SheetExampleView.swift */; };
@@ -24,7 +24,7 @@
 		74547D8B2CB6AF8500A70463 /* ExampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74547D9E2CB6AF9000A70463 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74547DB42CB6C54000A70463 /* ModalDestinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDestinations.swift; sourceTree = "<group>"; };
-		74547DB92CB6C5A300A70463 /* ModalPresenterExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresenterExampleApp.swift; sourceTree = "<group>"; };
+		74547DB92CB6C5A300A70463 /* ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleApp.swift; sourceTree = "<group>"; };
 		74547DBB2CB6C5B800A70463 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		74547DBD2CB6C5CC00A70463 /* FullScreenCoverExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenCoverExampleView.swift; sourceTree = "<group>"; };
 		74547DBF2CB6C5D900A70463 /* SheetExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetExampleView.swift; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 		74547DB32CB6C53900A70463 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				74547DB92CB6C5A300A70463 /* ModalPresenterExampleApp.swift */,
+				74547DB92CB6C5A300A70463 /* ExampleApp.swift */,
 				74547DB42CB6C54000A70463 /* ModalDestinations.swift */,
 			);
 			path = App;
@@ -173,7 +173,7 @@
 			files = (
 				74547DBE2CB6C5CD00A70463 /* FullScreenCoverExampleView.swift in Sources */,
 				74547DBC2CB6C5BA00A70463 /* MainView.swift in Sources */,
-				74547DBA2CB6C5A500A70463 /* ModalPresenterExampleApp.swift in Sources */,
+				74547DBA2CB6C5A500A70463 /* ExampleApp.swift in Sources */,
 				74547DB52CB6C54100A70463 /* ModalDestinations.swift in Sources */,
 				74547DC02CB6C5DA00A70463 /* SheetExampleView.swift in Sources */,
 			);
