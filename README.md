@@ -32,17 +32,15 @@ Usage
 
 ### 1\. Define Modal Destinations
 
-Create an enum conforming to `DestinationProtocol`, where each case represents a modal view.
+Create an enum conforming to `ModalDestination`, where each case represents a modal view.
 
 ```swift
 import SwiftUI
 import ModalPresentationKit
 
-enum ModalDestinations: DestinationProtocol {
+enum ModalDestinations: ModalDestination {
     case exampleView
     case detailView(data: String) // For passing data
-
-    var id: Self { self }
     
     var body: some View {
         switch self {
