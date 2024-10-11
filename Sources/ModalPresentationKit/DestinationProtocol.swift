@@ -7,4 +7,10 @@
 
 import SwiftUI
 
-public typealias DestinationProtocol = View & Identifiable & Hashable
+public typealias DestinationProtocol = View & Identifiable
+
+public protocol ModalDestination: DestinationProtocol {}
+
+public extension ModalDestination {
+    public var id: UUID { UUID() }
+}
