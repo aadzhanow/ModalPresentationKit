@@ -8,11 +8,9 @@
 import SwiftUI
 import ModalPresentationKit
 
-enum ModalDestinations: DestinationProtocol {
+enum ModalDestinations: ModalDestination {
     case fullScreenCoverExample
     case sheetExample
-
-    var id: Self { self }
     
     var body: some View {
         switch self {
