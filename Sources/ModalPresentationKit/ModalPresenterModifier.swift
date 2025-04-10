@@ -11,19 +11,29 @@ public struct ModalPresenterModifier<Destination: DestinationProtocol>: ViewModi
     @ObservedObject var presenter: ModalPresenter<Destination>
 
     public func body(content: Content) -> some View {
+        #if os(iOS) || os(tvOS)
         content
-            .fullScreenCover(item: $presenter.fullScreenCoverDestination, onDismiss: {
-                presenter.dismiss()
-            }) { destination in
-                destination
-                    .environmentObject(presenter)
-            }
             .sheet(item: $presenter.sheetDestination, onDismiss: {
-                presenter.dismiss()
+                presenter.dismiss(style: .sheet)
             }) { destination in
                 destination
                     .environmentObject(presenter)
             }
+            .fullScreenCover(item: $presenter.fullScreenCoverDestination, onDismiss: {
+                presenter.dismiss(style: .fullScreenCover)
+            }) { destination in
+                destination
+                    .environmentObject(presenter)
+            }
+        #else
+        content
+            .sheet(item: $presenter.sheetDestination, onDismiss: {
+                presenter.dismiss(style: .sheet)
+            }) { destination in
+                destination
+                    .environmentObject(presenter)
+            }
+        #endif
     }
 }
 
@@ -32,3 +42,5 @@ public extension View {
         self.modifier(ModalPresenterModifier(presenter: presenter))
     }
 }
+
+
