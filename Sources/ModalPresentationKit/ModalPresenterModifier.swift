@@ -14,24 +14,36 @@ public struct ModalPresenterModifier<Destination: DestinationProtocol>: ViewModi
         #if os(iOS) || os(tvOS)
         content
             .sheet(item: $presenter.sheetDestination, onDismiss: {
-                presenter.dismiss(style: .sheet)
+                presenter.didCompleteDismissal(of: .sheet)
             }) { destination in
                 destination
                     .environmentObject(presenter)
+                    .transaction { transaction in
+                        // Use default animation for sheet presentations
+                        transaction.animation = .default
+                    }
             }
             .fullScreenCover(item: $presenter.fullScreenCoverDestination, onDismiss: {
-                presenter.dismiss(style: .fullScreenCover)
+                presenter.didCompleteDismissal(of: .fullScreenCover)
             }) { destination in
                 destination
                     .environmentObject(presenter)
+                    .transaction { transaction in
+                        // Use default animation for fullScreenCover presentations
+                        transaction.animation = .default
+                    }
             }
         #else
         content
             .sheet(item: $presenter.sheetDestination, onDismiss: {
-                presenter.dismiss(style: .sheet)
+                presenter.didCompleteDismissal(of: .sheet)
             }) { destination in
                 destination
                     .environmentObject(presenter)
+                    .transaction { transaction in
+                        // Use default animation for sheet presentations
+                        transaction.animation = .default
+                    }
             }
         #endif
     }
@@ -42,5 +54,3 @@ public extension View {
         self.modifier(ModalPresenterModifier(presenter: presenter))
     }
 }
-
-

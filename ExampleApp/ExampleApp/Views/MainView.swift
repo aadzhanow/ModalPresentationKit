@@ -23,6 +23,23 @@ struct MainView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             
+            // Status display
+            Group {
+                if let currentStyle = presenter.currentStyle {
+                    Text("Current presentation: \(String(describing: currentStyle))")
+                        .foregroundStyle(.secondary)
+                    if presenter.isDismissing {
+                        Text("(dismissing)")
+                            .foregroundStyle(.red)
+                    }
+                } else {
+                    Text("No active presentations")
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .font(.caption)
+            .padding(.vertical, 8)
+            
             presentationButtons
             
             Spacer()
@@ -53,14 +70,32 @@ struct MainView: View {
             })
             
             Button(action: {
-                // This will first dismiss any active presentation, then show the full screen cover
+                // This demonstrates proper sequencing - first show a sheet, then immediately
+                // request a fullScreenCover. The presenter will properly sequence them.
+                presenter.present(destination: .sheetExample, style: .sheet)
                 presenter.present(destination: .fullScreenCoverExample, style: .fullScreenCover)
             }, label: {
-                Text("Switch to Full Screen Cover")
+                Text("Seamless Transitions")
                     .foregroundStyle(.white)
                     .padding(12)
                     .frame(maxWidth: 280)
                     .background(.orange, in: RoundedRectangle(cornerRadius: 10))
+            })
+            
+            Button(action: {
+                // Example of chaining presentations with custom timing
+                presenter.present(destination: .sheetExample, style: .sheet)
+                
+                // With our new approach, this should also work with custom timing
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    presenter.present(destination: .fullScreenCoverExample, style: .fullScreenCover)
+                }
+            }, label: {
+                Text("Delayed Transition")
+                    .foregroundStyle(.white)
+                    .padding(12)
+                    .frame(maxWidth: 280)
+                    .background(.purple, in: RoundedRectangle(cornerRadius: 10))
             })
         }
     }

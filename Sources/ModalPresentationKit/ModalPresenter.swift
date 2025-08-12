@@ -19,47 +19,72 @@ public final class ModalPresenter<Destination: DestinationProtocol>: ObservableO
     #if os(iOS) || os(tvOS)
     @Published public var fullScreenCoverDestination: Destination?
     #endif
-
-    private var activePresentationStyles: Set<PresentationStyle> = []
+    
+    // Track the currently active presentation style, if any
+    @Published private(set) public var currentStyle: PresentationStyle?
+    
+    // Flag to track if a dismissal is in progress
+    @Published private(set) public var isDismissing = false
+    
+    // The next presentation that should happen after dismissal completes
+    private var nextPresentation: (destination: Destination, style: PresentationStyle)?
     
     public init() {}
-
+    
     public func present(destination: Destination, style: PresentationStyle) {
-        // First dismiss any active presentations
-        dismiss()
+        if let currentStyle = currentStyle {
+            // Store the next presentation and initiate dismissal
+            nextPresentation = (destination, style)
+            dismiss(style: currentStyle)
+        } else {
+            // No active presentation, present immediately
+            presentImmediately(destination: destination, style: style)
+        }
+    }
+    
+    private func presentImmediately(destination: Destination, style: PresentationStyle) {
+        self.currentStyle = style
         
-        // Then present the new one
-        activePresentationStyles.insert(style)
         switch style {
         case .sheet:
-            sheetDestination = destination
+            self.sheetDestination = destination
         #if os(iOS) || os(tvOS)
         case .fullScreenCover:
-            fullScreenCoverDestination = destination
+            self.fullScreenCoverDestination = destination
         #endif
         }
     }
-
+    
     public func dismiss(style: PresentationStyle? = nil) {
-        if let style = style {
-            // Dismiss specific style
-            activePresentationStyles.remove(style)
-            switch style {
-            case .sheet:
-                sheetDestination = nil
-            #if os(iOS) || os(tvOS)
-            case .fullScreenCover:
-                fullScreenCoverDestination = nil
-            #endif
-            }
-        } else {
-            // Dismiss all active presentations
-            activePresentationStyles.removeAll()
-            
+        // If a specific style is provided, only dismiss if it matches the current style
+        if let style = style, style != currentStyle {
+            return
+        }
+        
+        isDismissing = true
+        
+        switch currentStyle {
+        case .sheet:
             sheetDestination = nil
-            #if os(iOS) || os(tvOS)
+        #if os(iOS) || os(tvOS)
+        case .fullScreenCover:
             fullScreenCoverDestination = nil
-            #endif
+        #endif
+        case .none:
+            break
+        }
+        
+        currentStyle = nil
+    }
+    
+    // This is called from the onDismiss callback of sheet/fullScreenCover
+    public func didCompleteDismissal(of style: PresentationStyle) {
+        isDismissing = false
+        
+        // If we have a next presentation waiting, present it now
+        if let next = nextPresentation {
+            nextPresentation = nil
+            presentImmediately(destination: next.destination, style: next.style)
         }
     }
 }

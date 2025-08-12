@@ -22,19 +22,34 @@ struct SheetExampleView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             
+            // Status display
+            Group {
+                if let currentStyle = presenter.currentStyle {
+                    if presenter.isDismissing {
+                        Text("Dismissing...")
+                            .foregroundStyle(.red)
+                    } else {
+                        Text("Active: \(String(describing: currentStyle))")
+                            .foregroundStyle(.green)
+                    }
+                }
+            }
+            .font(.caption)
+            .padding(.vertical, 8)
+            
             Button(action: {
                 presenter.present(destination: .fullScreenCoverExample, style: .fullScreenCover)
             }, label: {
-                Text("Show Full Screen Cover")
+                Text("Present Full Screen Cover")
                     .foregroundStyle(.black)
                     .padding(12)
                     .background(.white, in: RoundedRectangle(cornerRadius: 10))
             })
             
             Button(action: {
-                presenter.dismiss(style: .sheet)
+                presenter.dismiss()
             }, label: {
-                Text("Dismiss Sheet")
+                Text("Dismiss")
                     .foregroundStyle(.black)
                     .padding(12)
                     .background(.white, in: RoundedRectangle(cornerRadius: 10))
